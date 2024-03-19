@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Layout Responsif</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="./generateBeloteCard.js"></script>
+
+    <style>
+        .popup {
+            
+            z-index: 9500000;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: green;
+            border-radius: 15px;
+            padding: 20px;
+            border: 1px solid #000;
+            text-align: center;
+        }
+
+        .section {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .bleu {
+            background-color: blue;
+            color: white;
+        }
+
+        .orange {
+            background-color: orange;
+            color: white;
+        }
+
+        .rouge {
+            background-color: red;
+            color: white;
+        }
+
+        .noir {
+            background-color: black;
+            color: white;
+        }
+
+        .vert {
+            background-color: green;
+            color: white;
+        }
+        .spade {
+            background-color: black;
+            color: white;
+        }
+        .clover {
+            background-color: black;
+            color: white;
+        }
+        .heart {
+            background-color: red;
+            color: white;
+        }
+        .square {
+            background-color: red;
+            color: white;
+        }
+
+    </style>
+</head>
+<body>
+<div id="announcement-popup" class="popup">
+    <div id="popup-section-1" class="section">
+        <button id="btn90"    onclick="announceTake(id)" class="bleu">90</button>
+        <button id="btn100"   onclick="announceTake(id)" class="bleu">100</button>
+        <button id="btn110"   onclick="announceTake(id)" class="bleu">110</button>
+        <button id="btn120"   onclick="announceTake(id)" class="bleu">120</button>
+        <button id="btn130"   onclick="announceTake(id)" class="bleu">130</button>
+        <button id="btn140"   onclick="announceTake(id)" class="bleu">140</button>
+        <button id="btn150"   onclick="announceTake(id)" class="bleu">150</button>
+        <button id="btn160"   onclick="announceTake(id)" class="bleu">160</button>
+        <button id="btn170"   onclick="announceTake(id)" class="bleu">170</button>
+        <button id="btn180"   onclick="announceTake(id)" class="bleu">180</button>
+        <button id="btnCapot" onclick="announceTake(id)" class="orange">Capot</button>
+    </div>
+    <div id="popup-section-2" class="section">
+        <button id="btn-heart"  onclick="chooseAnnounce(id)" class="heart">♥</button>
+        <button id="btn-square" onclick="chooseAnnounce(id)" class="square">♦</button>
+        <button id="btn-spade" onclick="chooseAnnounce(id)" class="spade">♠</button>
+        <button id="btn-clover" onclick="chooseAnnounce(id)" class="clover">♣</button>
+    </div>
+    <div id="popup-section-4" class="section">
+        <button id="btn-tack" onclick="validateChoice()" class="orange">Prendre</button>
+      
+    </div>
+    <div id="popup-section-3" class="section">
+        <button id="btn-pass" class="bleu">Passer</button>
+        <button id="btn-coinche" class="rouge">Coinche</button>
+    </div>
+</div>
+<div id="table" style="height: 100%; width: 100%;background-color: transparent">
+    <div style="height: 100%; width: 100%">
+        <div class="section" id="section1">
+            <div class="sous-section" id="sous-section1-1"></div>
+            <div class="sous-section large" id="sous-section1-2"></div>
+            <div class="sous-section" id="sous-section1-3"></div>
+        </div>
+        <div class="section grande" id="section2">
+            <div class="sous-section" id="sous-section2-1"></div>
+            <div class="sous-section large cartes" id="sous-section2-2">
+                
+            </div>
+            <div class="sous-section" id="sous-section2-3"></div>
+        </div>
+        <div class="section" id="section3">
+            <div class="sous-section" id="sous-section3-1"></div>
+            <div class="sous-section large" id="sous-section3-2"></div>
+            <div class="sous-section" id="sous-section3-3"></div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    
+  document.addEventListener('DOMContentLoaded', (event) => {
+    hideAnnouncement()
+    startRound();
+    // startNewHand()
+  });
+</script>
+
+</body>
+</html>

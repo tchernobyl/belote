@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cartes de Belote</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .carte {
+            width: 100px;
+            height: 150px;
+            background-color: #fff;
+            border: 1px solid #000;
+            border-radius: 5px;
+            position: absolute;
+            text-align: center;
+            line-height: 150px;
+        }
+
+        .cartes {
+            position: relative;
+            width: 600px; /* Largeur et hauteur ajustables en fonction de l'espace disponible */
+            height: 600px;
+            margin: auto; /* Pour centrer les cartes horizontalement */
+        }
+
+
+    </style>
+</head>
+<body>
+<div class="cartes">
+    <div class="carte-played" style="top: 50px; left: 250px;">As de Trèfle</div>
+    <div class="carte-played" style="top: 450px; left: 250px;">Roi de Pique</div>
+    <div class="carte-played" style="top: 250px; left: 50px;">Dame de Carreau</div>
+    <div class="carte-played" style="top: 250px; left: 450px;">Valet de Cœur</div>
+</div>
+</body>
+</html>
