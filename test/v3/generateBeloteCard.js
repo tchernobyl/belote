@@ -46,7 +46,7 @@ let cartesDeBelote = [
     scoreAtout: '20',
   },
   {
-    tag: 'v',
+    tag: 'd',
     valeur: 'Dame',
     couleur: '♥',
     _couleur: 'c',
@@ -305,7 +305,9 @@ let currentGame = {
   dealer: 3,
   currentPlayer: 2,
   roundScore: 2000,
+  listAllAnnounce: [],
   listAnnounce: [],
+  lastAnnounce: {},
   announce: {
     player: '',
     score: 0,
@@ -451,7 +453,6 @@ var playedCardHtml = function(player, card) {
 
 var Robot = {
   showPlayedCard: function(player, card) {
-    console.log('card', card);
     playedCardHtml(player, card);
   },
   hideCardFromUI: function(card, player) {
@@ -613,108 +614,185 @@ var chooseAnnounce = function(id, player) {
   currentGame.announce.atout = getSelectedAnnounceValue(id);
 };
 var getLastAnnouncement = function() {
+  return currentGame.lastAnnounce;
   if (currentGame.listAnnounce.length) {
     return currentGame.listAnnounce[currentGame.listAnnounce.length - 1];
   }
   return {};
 };
 var pushNewAnnouncement = function(announcement) {
+  if (announcement.passed === false) {
+    currentGame.lastAnnounce = announcement;
+  }
   currentGame.listAnnounce.push(announcement);
   return announcement;
   
 };
-var tt = 0;
-var isLasteAnnoucementTaked = function () {
-  tt++;
-  return tt<15;
-}
-var startRound = function (){
-  if (currentGame.currentPlayer === currentGame.playerMe){
-    showAnnouncement()
+
+
+var startRound = function() {
+  if (currentGame.currentPlayer === currentGame.playerMe) {
+    showAnnouncement();
   } else {
-    hideAnnouncement()
+    hideAnnouncement();
     var announce = selectAnnounceRobot();
-    // chooseAnnounce(announce.score);
-    // announceTake(announce.atout);
     currentGame.announce.score = announce.score;
     currentGame.announce.atout = announce.atout;
-    currentGame.announce.player = currentGame.currentPlayer
-   
-    // getSelectedAnnounceValue()
+    currentGame.announce.passed = announce.passed;
+    currentGame.announce.player = currentGame.currentPlayer;
     validateChoice();
   }
-}
+};
 
-var getRandomChoice = function () {
+var getRandomChoice = function() {
   const randomNumber = Math.random();
-  // return randomNumber < 0.6;
-  return true;
-}
+  return randomNumber < 0.6;
+};
 
-var getRandomAtout = function () {
+var getRandomAtout = function() {
   var listAtout = ['♥', '♦', '♠', '♣'];
   var randomIndex = Math.floor(Math.random() * listAtout.length);
   return listAtout[randomIndex];
-  
-}
-var selectAnnounceRobot = function () {
+};
+
+var selectAnnounceRobot = function() {
   var lastAnnouncement = getLastAnnouncement();
   var takeAtout = getRandomChoice();
   var atout = getSelectedAnnounceValue(getRandomAtout());
-  if(takeAtout){
-    if(lastAnnouncement && lastAnnouncement.score>0 && lastAnnouncement.score<180){
+  if (takeAtout) {
+    if (lastAnnouncement && lastAnnouncement.score > 0 &&
+      lastAnnouncement.score < 180) {
       return {
-        score:lastAnnouncement.score+10,
-        atout:atout,
-        palyer: currentGame.currentPlayer
-      }
+        passed: false,
+        score: lastAnnouncement.score + 10,
+        atout: atout,
+        palyer: currentGame.currentPlayer,
+      };
     } else {
       return {
-        score:90,
-        atout:atout,
-        palyer: currentGame.currentPlayer
-      }
+        passed: false,
+        score: 90,
+        atout: atout,
+        palyer: currentGame.currentPlayer,
+      };
     }
-  } 
-  return {}
-}
+  }
+  return {
+    passed: true,
+    score: 0,
+    atout: 'none',
+    palyer: currentGame.currentPlayer,
+  };
+};
 var selectAnnounce = function() {
   
   var lastAnnouncement = getLastAnnouncement();
-  console.log(lastAnnouncement);
   if (lastAnnouncement && !lastAnnouncement.score &&
     currentGame.announce.score > 0) {
-    console.log(44);
     pushNewAnnouncement(
       {
         player: currentGame.currentPlayer,
         score: currentGame.announce.score,
         atout: currentGame.announce.atout,
+        passed: currentGame.announce.passed,
       },
     );
+  } else {
+    if (lastAnnouncement && lastAnnouncement.score &&
+      (lastAnnouncement.passed !== true) && currentGame.announce.score >
+      lastAnnouncement.score) {
+      
+      pushNewAnnouncement(
+        {
+          player: currentGame.currentPlayer,
+          score: currentGame.announce.score,
+          atout: currentGame.announce.atout,
+          passed: currentGame.announce.passed,
+        },
+      );
+    } else {
+      
+      pushNewAnnouncement(
+        {
+          player: currentGame.currentPlayer,
+          score: 0,
+          atout: '',
+          passed: true,
+        },
+      );
+    }
   }
-  if (lastAnnouncement && lastAnnouncement.score && currentGame.announce.score >
-    lastAnnouncement.score) {
-    console.log(55);
-    pushNewAnnouncement(
-      {
-        player: currentGame.currentPlayer,
-        score: currentGame.announce.score,
-        atout: currentGame.announce.atout,
-      },
-    );
+  nextAnnouncement()
+};
+
+var passWithoutTaking = function () {
+  pushNewAnnouncement(
+    {
+      player: currentGame.currentPlayer,
+      score: 0,
+      atout: '',
+      passed: true,
+    },
+  );
+}
+
+var nextAnnouncement = function () {
+  if (isLastAnnouncementTaken()) {
+    hideAnnouncement();
+    reInitDealer();
+    startNewHand();
+  } else {
+    nextPersonTurn();
+    startRound();
   }
-  nextPersonTurn();
-  startRound();
+}
+var getPreviousPlayer = function() {
   
+  var previous = 1;
+  switch (currentGame.dealer) {
+    case 1:
+      previous = 4;
+      break;
+    case 2:
+      previous = 1;
+      break;
+    case 3:
+      previous = 2;
+      break;
+    case 4:
+      previous = 3;
+      break;
+    
+  }
+  return previous;
+  
+};
+var reInitDealer = function() {
+  currentGame.currentPlayer = getPreviousPlayer();
+  return currentGame.currentPlayer;
+};
+
+var isLastAnnouncementTaken = function() {
+  var endLastAnnounce = true;
+  if (currentGame.listAnnounce.length > 4) {
+    for (var t = currentGame.listAnnounce.length; t >
+    currentGame.listAnnounce.length - 3; t--) {
+      if (currentGame.listAnnounce[t - 1].passed !== true) {
+        endLastAnnounce = false;
+      }
+    }
+  } else {
+    endLastAnnounce = false;
+  }
+  return endLastAnnounce;
 };
 
 var validateChoice = function() {
   
-  if (currentGame.announce.score > 0 && currentGame.announce.atout) {
-    currentGame.announce.player = currentGame.currentPlayer;
-    selectAnnounce();
-  }
+  // if (currentGame.announce.score > 0 && currentGame.announce.atout) {
+  currentGame.announce.player = currentGame.currentPlayer;
+  selectAnnounce();
+  // }
   
 };
 
@@ -730,8 +808,8 @@ var startNewHand = function() {
   listCardByPlayer = {};
   
   // Distribuer les cartes
-  distribuerCartes('sous-section1-2', cartesDeBelote.slice(0, 8), 1, true);
-  distribuerCartes('sous-section3-2', cartesDeBelote.slice(8, 16), 3, true);
+  distribuerCartes('sous-section1-2', cartesDeBelote.slice(0 ,  8)  , 1, true);
+  distribuerCartes('sous-section3-2', cartesDeBelote.slice(8 , 16), 3, true);
   distribuerCartes('sous-section2-1', cartesDeBelote.slice(16, 24), 2, false);
   distribuerCartes('sous-section2-3', cartesDeBelote.slice(24, 32), 4, false);
   startGame();
