@@ -5,6 +5,8 @@ class Trick {
     this.position = 1;
     this.score = 0;
     this.ownerPlayer = {};
+    this.currentColors = '';
+    this.currentPlayer = {}
     this.selectedAtout = {};
     this.highestCard = {};
   }
@@ -13,6 +15,9 @@ class Trick {
     this.selectedAtout = atout;
   }
   
+  getAtout() {
+    return this.selectedAtout ;
+  }
   addCard(player, card) {
     if (this.listCards.length < 5) {
       this.listCards.push({
@@ -75,6 +80,24 @@ class Trick {
   
   getPlayedCards() {
     return this.listCards;
+  }
+  
+  setCurrentColor (card) {
+    this.currentColors = card.colorName
+    return this.currentColors
+  }
+  
+  getCurrentColor () {
+    return this.currentColors
+  }
+  
+  setCurrentPlayer (player) {
+    this.currentPlayer = player
+    return this.currentPlayer
+  }
+  
+  getCurrentPlayer () {
+    return this.currentPlayer
   }
   
   isAllCardPlayed() {

@@ -309,21 +309,34 @@ class Game {
   }
   
   saveTrickByPlayerIdAndCardId(player, card) {
-    this.trick.addCard(player, card);
-    this.trick.selectAtout(this.selectedAtout);
-    this.trick.level = this.tricks.listOfPlayedCard.length;
-    if (this.trick.isAllCardPlayed()) {
-      this.trick.setWinnerPlayerInTrick();
-      this.tricks.listOfPlayedCard.push(this.trick);
-      
-      this.trick = new Trick(this.tricks.listOfPlayedCard.length);
-      if (this.tricks.listOfPlayedCard.length === 8) {
-        this.tricks.calculateScore();
-        this.round.listTricksInRound.push(this.tricks);
-        this.initTricksList(this.tricks.scoreTotalByPlayer);
+    if(player && card){
+      if(this.trick.getPlayedCards().length === 1){
+        this.trick.setCurrentColor(card);
+        this.trick.setCurrentPlayer(player);
+        // console.log("\n\n ----:")
+        // console.log("atout",this.trick.getAtout())
       }
+      // console.log(player)
+      // console.log('current Color',this.trick.getCurrentColor()  );
+      this.trick.addCard(player, card);
+      this.trick.selectAtout(this.selectedAtout);
+      this.trick.level = this.tricks.listOfPlayedCard.length;
+      if (this.trick.isAllCardPlayed()) {
+        this.trick.setWinnerPlayerInTrick();
+        this.tricks.listOfPlayedCard.push(this.trick);
+    
+        this.trick = new Trick(this.tricks.listOfPlayedCard.length);
+        if (this.tricks.listOfPlayedCard.length === 8) {
+          this.tricks.calculateScore();
+          this.round.listTricksInRound.push(this.tricks);
+          this.initTricksList(this.tricks.scoreTotalByPlayer);
+        }
+      }
+      this.calculateTotalScoreByTeam()
+    } else {
+      console.log(44444)
     }
-    this.calculateTotalScoreByTeam()
+ 
     return this.trick;
   }
   
