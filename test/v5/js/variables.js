@@ -1,0 +1,88 @@
+const beloteColors = [
+  {
+    colorName: 'spade',
+    color: '♠',
+    colorTag: 'sp',
+  },
+  {
+    colorName: 'square',
+    color: '♦',
+    colorTag: 'sq',
+  },
+  {
+    colorName: 'clover',
+    color: '♣',
+    colorTag: 'cl',
+  },
+  {
+    colorName: 'heart',
+    color: '♥',
+    colorTag: 'he',
+  },
+];
+const beloteNumbers = [
+  {
+    cardTag: '7',
+    cardName: 'seven',
+    cardPower: 1,
+    cardPowerAtout: 1,
+    cardScore: 0,
+    cardScoreAtout: 0,
+  },
+  {
+    cardTag: '8',
+    cardName: 'eight',
+    cardPower: 2,
+    cardPowerAtout: 2,
+    cardScore: 0,
+    cardScoreAtout: 0,
+  },
+  {
+    cardTag: '9',
+    cardName: 'nine',
+    cardPower: 3,
+    cardPowerAtout: 7,
+    cardScore: 0,
+    cardScoreAtout: 14,
+  },
+  {
+    cardTag: '10',
+    cardName: 'ten',
+    cardPower: 7,
+    cardPowerAtout: 5,
+    cardScore: 10,
+    cardScoreAtout: 10,
+  },
+  {
+    cardTag: 'j',
+    cardName: 'jack',
+    cardPower: 4,
+    cardPowerAtout: 8,
+    cardScore: 2,
+    cardScoreAtout: 20,
+  },
+  {
+    cardTag: 'q',
+    cardName: 'queen',
+    cardPower: 5,
+    cardPowerAtout: 3,
+    cardScore: 3,
+    cardScoreAtout: 3,
+  },
+  {
+    cardTag: 'r',
+    cardName: 'king',
+    cardPower: 6,
+    cardPowerAtout: 4,
+    cardScore: 4,
+    cardScoreAtout: 4,
+  },
+  {
+    cardTag: 'a',
+    cardName: 'ace',
+    cardPower: 8,
+    cardPowerAtout: 6,
+    cardScore: 11,
+    cardScoreAtout: 11,
+  },
+]

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Layout Responsif</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="./styles/style.css">
+    <script src="./js/variables.js"></script>
+    <script src="./js/common.js"></script>
+    <script src="./objects/game.js"></script>
+    <script src="./objects/player.js"></script>
+    <script src="./objects/belote.js"></script>
+    <script src="./objects/trick.js"></script>
+    <script src="./objects/round.js"></script>
+    <script src="./views/view.js"></script>
+    <script src="./main.js"></script>
+
+</head>
+<body>
+
+<div class="container" style="height: 100vh;">
+    <div class="row" style="height: 25vh">
+        <div class="col-md-3" style="background-color: orange"></div>
+        <div class="col-md-6" style="background-color: transparent"></div>
+        <div class="col-md-3" style="background-color: orange"></div>
+    </div>
+    <div class="row" style="height: 50vh">
+        <div class="col-md-3" style="background-color: transparent"></div>
+        <div id='tapis' class="col-md-6" style="background-color: green;position: relative">
+
+
+            <div id="card-player-id-4" index="2" class="carte-played"
+                 style="top: 120px;left: 340px;z-index: 2"></div>
+            <div id="card-player-id-1" index="3" class="carte-played"
+                 style="top: 20px;left: 250px;z-index: 3"></div>
+            <div id="card-player-id-2" index="4" class="carte-played"
+                 style="top: 120px;left: 160px;z-index: 4"></div>
+            <div id="card-player-id-3" index="1" class="carte-played"
+                 style="top: 200px;left: 250px;z-index: 1"></div>
+            
+        </div>
+        <div class="col-md-3" style="background-color: transparent"></div>
+    </div>
+    <div class="row" style="height: 25vh">
+        <div class="col-md-3" style="background-color: orange"></div>
+        <div class="col-md-6" style="background-color: transparent"></div>
+        <div class="col-md-3" style="background-color: orange"></div>
+    </div>
+</div>
+<script>
+ 
+  
+
+    
+  function updateWidth() {
+    var container = document.getElementById("tapis");
+    
+    var child = document.getElementById("card-player-id-1");
+    var child1 = document.getElementById("card-player-id-2");
+    var child2 = document.getElementById("card-player-id-3");
+    var child3 = document.getElementById("card-player-id-4");
+    var height = container.clientHeight;
+    var width = container.clientWidth;
+    child.style.width = (height * 20/100) + "px";
+    child.style.height = (height * 30/100) + "px";
+    child.style.left = ((width/2)-(height * 20/200))+ "px";
+    child.style.top =(height *5/100)+ + "px";
+    
+    
+    child2.style.width = (height * 20/100) + "px";
+    child2.style.height = (height * 30/100) + "px";
+    child2.style.left = ((width/2)-(height * 20/200))+ "px";
+    child2.style.top =(height-(height *5/100) - (height * 30/100) )+ "px";
+    
+    
+    child1.style.width = (height * 20/100) + "px";
+    child1.style.height = (height * 30/100) + "px";
+    child1.style.left = (height *5/100)+ "px";
+    child1.style.top = ((height/2)-(height * 30/200))+ "px"
+  
+  
+    child3.style.width = (height * 20/100) + "px";
+    child3.style.height = (height * 30/100) + "px";
+    child3.style.left = (width-(height *5/100)-(height * 20/100) )+ "px";
+    child3.style.top = ((height/2)-(height * 30/200))+ "px"
+    
+  }
+  
+  window.onload = updateWidth;
+  window.onresize = updateWidth;
+  document.addEventListener('DOMContentLoaded', (event) => {
+    playScenario();
+  });
+</script>
+
+</body>
+</html>

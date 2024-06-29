@@ -357,11 +357,11 @@ class Game {
         this.trick.setCurrentColor(card);
         this.trick.setCurrentPlayer(player);
       }
-      this.view.addCardToHtml(player._id, card);
+      this.view.addCardToHtml(player, card);
       
       this.calculateTotalScoreByTeam();
     } else {
-      console.log(44444);
+      console.error("saveTrickByPlayerIdAndCardId");
     }
     
     return this.trick;
@@ -411,18 +411,22 @@ class Game {
     let secondPlayer = this.findPlayerByRank(2);
     let secondPlayerCards = this.belote.listCards.slice(0, 8);
     secondPlayer.distributeCardsToPlayer(secondPlayerCards);
+    this.view.distributeCards(secondPlayer,secondPlayerCards);
     
     let thirdPlayer = this.findPlayerByRank(3);
     let thirdPlayerCards = this.belote.listCards.slice(8, 16);
     thirdPlayer.distributeCardsToPlayer(thirdPlayerCards);
+    this.view.distributeCards(thirdPlayer,thirdPlayerCards);
     
     let forthPlayer = this.findPlayerByRank(4);
     let forthPlayerCards = this.belote.listCards.slice(16, 24);
     forthPlayer.distributeCardsToPlayer(forthPlayerCards);
+    this.view.distributeCards(forthPlayer,forthPlayerCards);
     
     let firstPlayer = this.findPlayerByRank(1);
     let firstPlayerCards = this.belote.listCards.slice(24, 32);
     firstPlayer.distributeCardsToPlayer(firstPlayerCards);
+    this.view.distributeCards(firstPlayer,firstPlayerCards);
     
     return this.players;
   }

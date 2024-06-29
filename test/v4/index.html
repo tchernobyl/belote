@@ -12,16 +12,34 @@
     <script src="./objects/belote.js"></script>
     <script src="./objects/trick.js"></script>
     <script src="./objects/round.js"></script>
-    <script src="./main.js"></script>
+    <script src="./views/view.js"></script>
+    <script src="./main4.js"></script>
 </head>
 <body>
-
+<table style="width: 100%">
+    <tr>
+        <td style="width: 33% ; height: 100px"></td>
+        <td style="width: 33%" id="card-player-3"></td>
+        <td style="width: 33%"></td>
+    </tr>
+    <tr style="width: 100%">
+        <td style="width: 33% ; height: 100px" id="card-player-4"></td>
+        <td></td>
+        <td id="card-player-2"></td>
+    </tr>
+    <tr>
+        <td style="width: 33% ; height: 100px"></td>
+        <td id="card-player-1"></td>
+        <td></td>
+    </tr>
+</table>
 
 
 <script>
   
   document.addEventListener('DOMContentLoaded', (event) => {
-
+    playScenario();
+    // runMainGame()
   });
 </script>
 
